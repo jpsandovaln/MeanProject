@@ -13,6 +13,7 @@ app.set(PORT, process.env.PORT || PORT_NUMBER);
 
 // Midlewares
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
 // Routes
