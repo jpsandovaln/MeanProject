@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
 const { Mongoose } = require('./database/database');
@@ -15,6 +16,7 @@ app.set(PORT, process.env.PORT || PORT_NUMBER);
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:4200' }));
 
 // Routes
 app.use('/crud/employees', require('./routes/employee.route'));

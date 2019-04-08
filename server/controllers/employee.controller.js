@@ -33,7 +33,7 @@ const upload = multer({
 
 const employeeController = {};
 
-employeeController.uploadSingle = upload.single('imageTest');
+employeeController.uploadSingle = upload.single('imageUpload');
 
 employeeController.getAllEmployees = async (req, res) => {
     const employees = await Employee.find();
@@ -42,6 +42,7 @@ employeeController.getAllEmployees = async (req, res) => {
 
 employeeController.createEmployee = (req, res) => {
     const cryto = new CrytoFile();
+    console.log(req.file);
     const  checksum = cryto.getCheckSum(req.file.path);
     checksum.then( async (md5) => {
         console.log('checksum = ' + md5);
@@ -50,7 +51,7 @@ employeeController.createEmployee = (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             age: req.body.age,
-            image: req.file.path,
+            image: "http://localhost:3000/" + req.file.path,
             checkSumImage: md5
         });
         await employee.save().then();
