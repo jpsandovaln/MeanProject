@@ -9,7 +9,7 @@ export class EmployeeService {
 
   selectedEmployee: Employee;
 
-  readonly URL_API = 'http://localhost:3000/crud/employees/';
+  readonly URL_API = 'http://172.21.19.100:3000/crud/employees/';
   
   HttpUploadOptions  = {
     headers: new HttpHeaders({ "Content-Type": "multipart/form-data" })
@@ -29,8 +29,11 @@ export class EmployeeService {
     }).pipe();
   }
 
-  updateEmployee(employee: Employee) {
-    return this.http.put(this.URL_API + `/${ employee._id }`, employee);
+  updateEmployee(_id: string, employee: FormData) {
+    return this.http.put(this.URL_API + `/${ _id }`, employee, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe();
   }
 
   deleteEmployee(_id: string) {

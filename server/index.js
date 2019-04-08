@@ -16,7 +16,7 @@ app.set(PORT, process.env.PORT || PORT_NUMBER);
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'http://172.21.19.17:4200' }));
 
 // Routes
 app.use('/crud/employees', require('./routes/employee.route'));

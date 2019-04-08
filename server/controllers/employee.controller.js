@@ -51,7 +51,7 @@ employeeController.createEmployee = (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             age: req.body.age,
-            image: "http://localhost:3000/" + req.file.path,
+            image: "http://172.21.19.100:3000/" + req.file.path,
             checkSumImage: md5
         });
         await employee.save().then();
@@ -65,16 +65,22 @@ employeeController.getEmployee = async (req, res) => {
     res.json(employee);
 }
 
-employeeController.editEmployee = async (req, res) => {
-    const employee = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        age: req.body.age,
-        image: req.body.image,
-        checkSumImage: req.body.checkSumImage
-    };
-    await Employee.findByIdAndUpdate(req.params.id, {$set: employee }, { new: true })
-    res.json({ status: 'Employee updated' });
+employeeController.editEmployee = (req, res) => {
+    const cryto = new CrytoFile();   
+    console.log(req.file);
+    console.log(req.params.id);
+    const  checksum = cryto.getCheckSum(req.file.path);
+    checksum.then( async (md5) => {
+        const employee = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            age: req.body.age,
+            image: "http://172.21.19.100:3000/" + req.file.path,
+            checkSumImage: md5
+        };
+        await Employee.findByIdAndUpdate(req.params.id, {$set: employee }, { new: true })
+        res.json({ status: 'Employee updated' });
+    });
 }
 
 employeeController.deleteEmployee = async (req, res) => {

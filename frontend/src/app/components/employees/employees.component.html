@@ -1,6 +1,7 @@
 <main>
   <mat-card>
     <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+      <input type="hidden" name="_id" #_id = "ngModel" [(ngModel)] = "employeeService.selectedEmployee._id">
       <mat-form-field>
         <input type="text" name="firstName" #firstName="ngModel" [(ngModel)] = "employeeService.selectedEmployee.firstName" matInput placeholder="First Name">
       </mat-form-field>
@@ -10,7 +11,7 @@
       <mat-form-field>
         <input type="text" name="age" #age="ngModel" [(ngModel)] = "employeeService.selectedEmployee.age" matInput placeholder="Age">
       </mat-form-field>
-      <input type="file" name="image" #image="ngModel" [(ngModel)] = "employeeService.selectedEmployee.image" (change)="onFileSelected($event)">
+      <input type="file" name="image" #image (change)="onFileSelected($event)">
       <button mat-button mat-raised-button color="primary">Save</button>
       <button mat-button mat-raised-button color="basic" (click)="resetForm(employeeForm)">Clean</button>
     </form>
@@ -30,16 +31,23 @@
     </ng-container>
     <ng-container matColumnDef="Image">
       <th mat-header-cell *matHeaderCellDef>Image</th>
-      <td mat-cell *matCellDef="let employee"><img [src] = "employee.image" mat-card-image style="width:70px; height:70px;"></td>
+      <td mat-cell *matCellDef="let employee"><a href="employee.image" target="_blank"><img [src] = "employee.image" mat-card-image style="width:70px; height:70px;"></a></td>
     </ng-container>
     <ng-container matColumnDef="Operations">
       <th mat-header-cell *matHeaderCellDef>Operations</th>
-      <td mat-cell *matCellDef="let employee"></td>
+      <td mat-cell *matCellDef="let employee">
+        <a (click)="editEmployee(employee)" class>
+          <i class="material-icons color_green" color="primary">edit</i>
+        </a>
+        <a (click)="deleteEmployee(employee._id)" class>
+            <i class="material-icons color_green" color="primary">delete</i>
+          </a>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table> 
-    <table>
+    <!--table>
       <thead>
         <th>First Name</th>
         <th>Last Name</th>
@@ -56,5 +64,5 @@
           <td></td>
         </tr>
       </tbody>
-    </table>
+    </table-->
 </main>

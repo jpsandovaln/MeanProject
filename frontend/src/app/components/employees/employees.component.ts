@@ -33,12 +33,21 @@ export class EmployeesComponent implements OnInit {
     fd.append('imageUpload', this.selectedFile);
     fd.append('firstName', form.value.firstName);
     fd.append('lastName', form.value.lastName);
-    fd.append('age', form.value.age);   
+    fd.append('age', form.value.age); 
 
-    this.employeeService.addEmployee(fd)
-      .subscribe( res => {
-        this.resetForm(form);
-      });
+    if(form.value._id) {
+      this.employeeService.updateEmployee(form.value._id, fd)
+        .subscribe(res => {
+          this.resetForm(form);
+          this.getAllEmployees();
+        });
+    } else {
+      this.employeeService.addEmployee(fd)
+        .subscribe( res => {
+          this.resetForm(form);
+          this.getAllEmployees();
+        });
+    }
   }
 
   onFileSelected(event) {
@@ -54,5 +63,17 @@ export class EmployeesComponent implements OnInit {
           },
           err => console.log(err)
       );
+  }
+
+  editEmployee(employee: Employee) {
+    this.employeeService.selectedEmployee = employee;
+  }
+
+  deleteEmployee(_id: string) {
+    this.employeeService.deleteEmployee(_id)
+      .subscribe(res => {
+        console.log(res);
+        this.getAllEmployees();
+      });
   }
 }
