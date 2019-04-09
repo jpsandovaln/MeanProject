@@ -30,11 +30,9 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-
 const employeeController = {};
 
 employeeController.uploadSingle = upload.single('imageUpload');
-
 
 employeeController.getAllEmployees = async (req, res) => {
     const employees = await Employee.find();
@@ -79,7 +77,6 @@ employeeController.createEmployee = (req, res) => {
         await employee.save().then();
         res.json({ status: 'Employee created' });
     });
-    
 }
 
 employeeController.getEmployee = async (req, res) => {
