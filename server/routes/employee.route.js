@@ -1,21 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const cron = require('node-cron');
+const EmployeeController = require('../controllers/employee.controller');
 
-const employeeController = require('../controllers/employee.controller');
+const employeeController = new EmployeeController();
 
-router.get('/', employeeController.getAllEmployees);
-router.post('/', employeeController.uploadSingle, employeeController.createEmployee);
-router.get('/:id', employeeController.getEmployee);
-router.put('/:id', employeeController.uploadSingle, employeeController.editEmployee);
-router.delete('/:id', employeeController.deleteEmployee);
-
-cron.schedule("*/10 * * * * *", function() {
-    console.log('------------');
-    employeeController.getEmployeesByBirthday().then( empList => {
-        console.log('List of birtday = ' + empList);
-    });
-
-});
+router.get('/', employeeController.getAllEmployees());
+router.get('/:id', employeeController.getEmployee());
+router.post('/', employeeController.uploadSingle(), employeeController.createEmployee());
+router.delete('/:id', employeeController.deleteEmployee());
+router.put('/:id', employeeController.uploadSingle(), employeeController.editEmployee());
 
 module.exports = router;

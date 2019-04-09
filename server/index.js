@@ -3,7 +3,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
 
-const { Mongoose } = require('./database/database');
+const DataBaseConnection = require('./database/database');
+
+// Connection
+const conn = new DataBaseConnection();  
+conn.getDataBaseConnection();
 
 // Constants
 const PORT_NUMBER = 3000;
