@@ -1,6 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
 import EmployeeController from '../controllers/employee.controller';
+
+const router = express.Router();
 
 const employeeController = new EmployeeController();
 

@@ -4,7 +4,7 @@ import Schedule from '../commons/schedule';
 import mongoose from 'mongoose'; 
 import multer from 'multer';
 
-module.exports = class EmployeeController {
+export default class EmployeeController {
     constructor() {
         this.map = new Map();
     }

@@ -1,9 +1,10 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const app = express();
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 
-const DataBaseConnection = require('./database/database');
+import DataBaseConnection from './database/database';
+
+const app = express();
 
 // Connection
 const conn = new DataBaseConnection();  
