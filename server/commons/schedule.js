@@ -8,7 +8,7 @@ export default class Schedule{
     }
 
     getBirthdateSchedule(firsName) {
-        const sche = `*/5 * * ${this._day} ${this._month} * *`;
+        const sche = `* * 11 ${this._day} ${this._month} * *`;
         const task = cron.schedule(sche, () => {
             console.log(`Birthday: ${firsName}`);
         }, {
