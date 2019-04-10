@@ -1,7 +1,7 @@
-const crypto = require('crypto');
-const fs= require('fs');
+import crypto from 'crypto';
+import fs from 'fs';
 
-module.exports = class cryptoFile {
+export default class cryptoFile {
     constructor(){
     }
 

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose'); 
+import mongoose from 'mongoose'; 
 
-module.exports = class DataBaseConnection {
+export default class DataBaseConnection {
 
     constructor() {
         this.URI = 'mongodb://localhost/test-db-crud-con';

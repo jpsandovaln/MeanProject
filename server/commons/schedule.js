@@ -1,6 +1,6 @@
-const cron = require('node-cron');
+import cron from 'node-cron';
 
-module.exports = class Schedule{
+export default class Schedule{
     constructor(date){
         this._day = date.getUTCFullYear();
         this._month = date.getUTCMonth() + 1;
