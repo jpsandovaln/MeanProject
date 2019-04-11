@@ -1,0 +1,6 @@
+<nav class="{{active}}" ng-click="$event.preventDefault()" style="background-color:#55B460;">
+        <a href="#" class="home" ng-click="active='home'">Show Employees</a>
+        <a href="#" class="about" ng-click="active='about'">New Employee</a>
+</nav>
+
+<p ng-show="active">You chose <b>{{active}}</b></p>

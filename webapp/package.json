@@ -9,8 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.0",
-    "gulp-connect": "^5.7.0"
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.3",
+    "gulp": "^3.8.8",
+    "gulp-connect": "^5.7.0",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "angular": "^1.7.8",
@@ -18,6 +21,7 @@
     "angular-aria": "^1.7.8",
     "angular-material": "^1.1.18",
     "angular-route": "^1.7.8",
+    "babel-core": "^6.26.3",
     "jquery": "^3.4.0"
   }
 }
