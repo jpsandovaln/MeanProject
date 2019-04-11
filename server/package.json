@@ -1,0 +1,48 @@
+{
+  "name": "MeanProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && mkdir dist && babel server -s -d dist",
+    "production": "npm run build && node bin/production",
+    "dev": "node bin/dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpsandovaln/MeanProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpsandovaln/MeanProject/issues"
+  },
+  "homepage": "https://github.com/jpsandovaln/MeanProject#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.22",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "node-cron": "^2.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-eslint": "^10.0.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-xo-space": "^0.21.0",
+    "eslint-plugin-import": "^2.16.0",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-javascript-obfuscator": "^1.1.5",
+    "gulp-nodemon": "^2.4.2"
+  }
+}
