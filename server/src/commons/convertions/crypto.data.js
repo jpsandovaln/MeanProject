@@ -2,9 +2,6 @@ import crypto from 'crypto';
 import fs from 'fs';
 
 export default class cryptoFile {
-    constructor(){
-    }
-
     getCheckSum(filePath, algorithm) {
         return new Promise((resolve, reject) => {
             let shasum = crypto.createHash(algorithm || 'md5');

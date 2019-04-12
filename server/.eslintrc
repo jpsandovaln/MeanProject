@@ -1,0 +1,116 @@
+{
+  "globals": {
+    "node": true,
+    "expect": true
+  },
+  "root": true,
+  "env": {
+    "browser": true,
+    "jasmine": true,
+    "mocha": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "xo-space/esnext"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "angular/no-service-method": 0,
+    "max-params": 0,
+    "no-console": [
+      2,
+      {
+        "allow": [
+          "info",
+          "error"
+        ]
+      }
+    ],
+    "max-len": [
+      2,
+      100,
+      2,
+      {
+        "ignoreComments": true,
+        "ignoreUrls": true
+      }
+    ],
+    "semi": [
+      "error",
+      "always",
+      {
+        "omitLastInOneLineBlock": true
+      }
+    ],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "never",
+        "named": "never"
+      }
+    ],
+    "indent": [
+      "error",
+      4,
+      {
+        "MemberExpression": 0
+      }
+    ],
+    "padded-blocks": [
+      "error",
+      {
+        "blocks": "never"
+      }
+    ],
+    "newline-per-chained-call": [
+      "error",
+      {
+        "ignoreChainWithDepth": 2
+      }
+    ],
+    "valid-jsdoc": [
+      "error",
+      {
+        "requireReturn": false
+      }
+    ],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "prefer-arrow-callback": "error",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "linebreak-style": 0,
+    "no-new": 0,
+    "radix": 0,
+    "max-depth": [
+      "error",
+      5
+    ],
+    "no-useless-escape": 0,
+    "max-nested-callbacks": 0,
+    "new-cap": [
+      "error",
+      {
+        "capIsNewExceptionPattern": "express"
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
+    ],
+    "no-negated-condition": 0,
+    "capitalized-comments": 0
+  }
+}

@@ -28,5 +28,5 @@ app.use('/crud/employees', require('./routes/employee.route'));
 
 // Starting server
 app.listen(app.get(PORT), () => {
-    console.log('running');
+    console.info(`Running on port ${PORT_NUMBER}`);
 });
