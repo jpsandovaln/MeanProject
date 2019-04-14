@@ -16,7 +16,8 @@
     "gulp-babel": "^7.0.1",
     "gulp-connect": "^5.7.0",
     "gulp-mocha": "^6.0.0",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "jquery": "^3.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

@@ -6,7 +6,6 @@ import './app/components/users/list_users/list.users.controller';
 
 angular.module('app', [
         'ngRoute',
-        'ngMaterial',
         'list.users.controllers'
     ])
     .config(['$routeProvider', function($routeProvider) {
