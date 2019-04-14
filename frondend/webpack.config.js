@@ -1,24 +1,56 @@
 const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+
+const basePath = __dirname;
+const distPath = './build';
+ 
+const indextInput = './src/index.html';
+const indexOutput = 'index.html';
 
 module.exports = {
 	entry: {
 	  app: [
 			'babel-polyfill',
-			'./app/app.js'
+			'./src/index.js'
 		]
 	},
+	devServer: {
+		host: "localhost",
+		port: 4200,
+		contentBase: "./build",
+		inline: true,
+		disableHostCheck: true,
+		historyApiFallback: true
+	},
 	output: {
-		path: path.resolve(__dirname, 'build'),
-		filename: 'app.bundle.js',
+		path: path.resolve(basePath, distPath),
+		filename: 'index.bundle.js',
 	},
 	module: {
-		rules: [{
-			test: /\.js?$/,
-			exclude: /node_modules/,
-			loader: 'babel-loader',
-			query: {
-				presets: ['env', 'stage-0']
-			}
-		}]
-	}
+		loaders: [
+			{
+			    test: /\.js?$/,
+			    exclude: /node_modules/,
+			    loader: 'babel-loader',
+			    query: {
+				    presets: ['env', 'stage-0']
+				}
+			},
+            {
+                test: /\.html$/,
+                loaders: [
+                    'html-loader'
+                ]
+            }
+		]
+	},
+	plugins: [
+        new HTMLWebpackPlugin({
+			inject: false,
+            filename: indexOutput, 
+            template: indextInput
+        })
+    ]
+
 };
+
