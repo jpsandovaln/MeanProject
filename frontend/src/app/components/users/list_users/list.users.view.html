@@ -1,0 +1,16 @@
+<div ng-controller="ListUsersController">
+    <div ng-repeat="employee in employees" layout="row" layout-xs="column">
+        <div flex>
+            <p>{{ employee.firstName }}</p>
+        </div>
+        <div flex>
+            <p>{{ employee.lastName }}</p>
+        </div>
+        <div flex>
+                <p>{{ employee.age }}</p>
+        </div>
+        <div flex>
+            <p>{{ employee.birthdate }}</p>
+        </div>
+    </div>
+</div>
