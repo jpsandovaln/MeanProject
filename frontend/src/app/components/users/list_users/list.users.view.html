@@ -1,5 +1,5 @@
-<form name="employeeForm">
-    <div style="margin-right: auto; margin-left: auto; width: 700px;" ng-controller="ListUsersController" ng-cloak>
+<form name="employeeForm" ng-controller="ListUsersController">
+    <div style="margin-right: auto; margin-left: auto; width: 700px;"  ng-cloak>
         <md-content class="md-padding" layout="column" layout="row">
             <div flex-xs flex-gt-xs="50" layout="column">
                 <md-card>
@@ -42,16 +42,16 @@
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button ng-click="addEmployee()">Save</md-button>
-                        <md-button>Update</md-button>
+                        <md-button ng-click="editEmployee()">Update</md-button>
                         <md-button ng-click="clearModel()">Clear</md-button>
                     </md-card-actions>
                 </md-card>
             </div>
         </md-content>
     </div>
-</form>
 
-<div style="margin-right: auto; margin-left: auto; width: 90%;" ng-controller="ListUsersController" ng-cloak>
+
+<div style="margin-right: auto; margin-left: auto; width: 90%;" ng-cloak>
     <md-content class="md-padding" layout="column" layout="row">
         <div flex-xs flex-gt-xs="50" layout="column">
             <md-card>
@@ -61,7 +61,7 @@
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <div ng-controller="ListUsersController">
+                    <div>
                         <div layout="row" layout-xs="column">
                             <div flex>
                                 <h2>First Name</h2>
@@ -104,7 +104,7 @@
                                 </a>
                             </div>
                             <div flex>
-                                <md-button class="md-raised" ng-click="editEmployee(employee)"> Edit </md-button>
+                                <md-button class="md-raised" ng-click="clearModel()"> Edit </md-button>
                             </div>
                             <div flex>
                                 <md-button class="md-raised" ng-click="deleteEmployee(employee)"> Delete </md-button>
@@ -116,3 +116,4 @@
         </div>
     </md-content>
 </div>
+</form>

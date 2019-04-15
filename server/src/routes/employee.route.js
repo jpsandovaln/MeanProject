@@ -6,6 +6,7 @@ const router = express.Router();
 const employeeController = new EmployeeController();
 
 router.get('/', employeeController.getAllEmployees());
+router.get('/birthdaylist/', employeeController.getBirthdayList());
 router.get('/:id', employeeController.getEmployee());
 router.post('/', employeeController.uploadSingle(), employeeController.createEmployee());
 router.delete('/:id', employeeController.deleteEmployee());

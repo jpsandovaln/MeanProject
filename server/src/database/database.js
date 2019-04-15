@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export default class DataBaseConnection {
 
     constructor() {
-        this.URI = 'mongodb://localhost/test-db-crud-con';
+        this.URI = 'mongodb://localhost/db-crud-emp-birth';
     }
     
     getDataBaseConnection() {

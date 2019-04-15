@@ -10,7 +10,7 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         $scope.employees = [];
         $http({
             method: 'get', 
-            url: 'http://localhost:3000/crud/employees'
+            url: 'http://172.21.19.100:3000/crud/employees'
         }).then(function (response) {
             console.log(response, 'res');
             $scope.employees = response.data;
@@ -29,7 +29,7 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             console.log(fd);
             $http({
                 method: 'post', 
-                url: 'http://localhost:3000/crud/employees',
+                url: 'http://172.21.19.100:3000/crud/employees',
                 headers: { 'Content-Type': undefined },
                 data: fd
             }).then(function (response) {
@@ -41,10 +41,41 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
 
         };
 
+        $scope.selectedEmployee = function(employee) {
+            console.log('selected:');
+            console.log(employee);
+            //$scope.selectedEmployee = employee;
+            $scope.firstName = '';
+            $scope.lastName = 's';
+            $scope.age = '10';
+        };
+
+        $scope.editEmployee = function() {
+          const fd = new FormData(); 
+          fd.append('imageUpload', $scope.selectedFile);
+          fd.append('firstName', $scope.firstName);
+          fd.append('lastName', $scope.lastName);
+          fd.append('age', $scope.age);   
+          fd.append('birthdate', moment($scope.birthdate).format("YYYY-MM-DD"));   
+
+          console.log(fd);
+          $http({
+              method: 'put', 
+              url: 'http://172.21.19.100:3000/crud/employees/' + $scope.selectedEmployee._id,
+              headers: { 'Content-Type': undefined },
+              data: fd
+          }).then(function (response) {
+              $scope.clearModel();
+          },function (error){
+              console.log(error, 'can not update data.');
+          });
+
+      };
+
         $scope.deleteEmployee = function (employee) {
             $http({
                 method: 'DELETE',
-                url: 'http://localhost:3000/crud/employees/' + employee._id
+                url: 'http://172.21.19.100:3000/crud/employees/' + employee._id
             })
             .then(function(response) {
                 const index = $scope.employees.indexOf(employee);
@@ -55,7 +86,9 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             
         };
 
-        $scope.clearModel = function () {
+        $scope.clearModel = function() {
+            console.log('clearModel');
+            console.log($scope);
             $scope.firstName = '';
             $scope.lastName = '';
             $scope.age = '';

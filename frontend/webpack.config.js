@@ -15,7 +15,7 @@ module.exports = {
 		]
 	},
 	devServer: {
-		host: "localhost",
+		host: "172.21.19.17",
 		port: 4200,
 		contentBase: "./build",
 		inline: true,
@@ -36,6 +36,31 @@ module.exports = {
 				    presets: ['env', 'stage-0']
 				}
 			},
+			{
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                loaders: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        query: {
+                            mozjpeg: {
+                                quality: '65-90',
+                                progressive: true
+                            },
+                            gifsicle: {
+                                interlaced: false
+                            },
+                            optipng: {
+                                optimizationLevel: 7
+                            },
+                            pngquant: {
+                                quality: '65-90',
+                                speed: 4
+                            }
+                        }
+                    }
+                ]
+            },
             {
                 test: /\.html$/,
                 loaders: [

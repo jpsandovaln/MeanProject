@@ -47,6 +47,18 @@ export default class EmployeeController {
             });
         };
     }
+    getBirthdayList() {
+        return (req, res) => {
+            var today = new Date();
+            var birthdate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            console.log(birthdate);
+            Employee.find({"birthdate": birthdate})
+            .then((employees) => {
+                console.log(birthdate);
+                res.json(employees);
+            });
+        }
+    }
 
     getEmployee() {
         return (req, res) => {
@@ -59,9 +71,8 @@ export default class EmployeeController {
 
     createEmployee() {
         return (req, res) => {
-            const parts = req.body.birthdate.split('-');
-            const birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
             const cryto = new CrytoFile();
+            const birthdate = req.body.birthdate;
             cryto.getCheckSum(req.file.path)
             .then((md5) => {
                 const employee = new Employee({
@@ -76,7 +87,7 @@ export default class EmployeeController {
                 return employee.save().then();
             })
             .then((employee) => {
-                const schedule = new Schedule(birthdate);
+                const schedule = new Schedule(new Date(birthdate));
                 const task = schedule.getBirthdateSchedule(req.body.firstName);
                 this.map.set(employee, task);
                 task.start();
@@ -93,6 +104,7 @@ export default class EmployeeController {
                 const employee = {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
+                    birthdate: req.body.birthdate,
                     age: req.body.age,
                     image: 'http://172.21.19.100:3000/' + req.file.path,
                     checkSumImage: md5

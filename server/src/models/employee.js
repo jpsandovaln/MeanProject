@@ -13,7 +13,7 @@ const EmployeeSchema = new Schema({
         type: Number, 
         require: true },   
     birthdate: { 
-        type: Date, 
+        type: String, 
         require: true},
     image: { 
         type: String, 
