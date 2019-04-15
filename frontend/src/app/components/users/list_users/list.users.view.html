@@ -1,15 +1,15 @@
 <form name="employeeForm">
-<div style="margin-right: auto; margin-left: auto; width: 700px;" ng-controller="ListUsersController" ng-cloak>
+    <div style="margin-right: auto; margin-left: auto; width: 700px;" ng-controller="ListUsersController" ng-cloak>
         <md-content class="md-padding" layout="column" layout="row">
-          <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card>
-              <md-card-title> 
-                <md-card-title-text>
-                  <span class="md-headline">Employee</span>
-                </md-card-title-text>
-              </md-card-title>
-              <md-card-content>
-                    <md-content layout-padding>
+            <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title> 
+                        <md-card-title-text>
+                            <span class="md-headline">Employee</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <md-content layout-padding>
                             <md-input-container class="md-block">
                                 <label>First Name</label>
                                 <input required name="fisrtName" ng-model="employee.firstName">
@@ -38,18 +38,19 @@
                                 <label>Birthday</label>
                                 <md-datepicker ng-model="employee.birthday"></md-datepicker>
                             </md-input-container>
-                    </md-content>
-              </md-card-content>
-              <md-card-actions layout="row" layout-align="end center">
-                <md-button>Save</md-button>
-                <md-button>Update</md-button>
-                <md-button>Clear</md-button>
-              </md-card-actions>
-            </md-card>
-          </div>
+                        </md-content>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button>Save</md-button>
+                        <md-button>Update</md-button>
+                        <md-button>Clear</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
         </md-content>
-</div>
+    </div>
 </form>
+
 <div style="margin-right: auto; margin-left: auto; width: 90%;" ng-controller="ListUsersController" ng-cloak>
     <md-content class="md-padding" layout="column" layout="row">
         <div flex-xs flex-gt-xs="50" layout="column">
@@ -63,16 +64,19 @@
                     <div ng-controller="ListUsersController">
                         <div layout="row" layout-xs="column">
                             <div flex>
-                                <h2>Fisrt Name</h2>
+                                <h2>First Name</h2>
                             </div>
                             <div flex>
                                 <h2>Last Name</h2>
                             </div>
-                            <div flex>
+                            <div flex="5">
                                 <h2>Age</h2>
                             </div>
                             <div flex>
                                 <h2>Birthday</h2>
+                            </div>
+                            <div flex>
+                                <h2>Image</h2>
                             </div>
                             <div flex>
                                 <h2>Operations</h2>
@@ -85,11 +89,16 @@
                             <div flex>
                                 <p>{{ employee.lastName }}</p>
                             </div>
-                            <div flex>
+                            <div flex="5">
                                 <p>{{ employee.age }}</p>
                             </div>
                             <div flex>
                                 <p>{{ employee.birthdate }}</p>
+                            </div>
+                            <div flex>
+                                <a href="{{ employee.image }}" target="_blank">
+                                    <img [src]="{{ employee.image }}" style="width:50px;height:50px;">
+                                </a>
                             </div>
                             <div flex>
                                 <md-button class="md-raised" ng-click="acceptOffer();"> Edit </md-button>
