@@ -12,21 +12,21 @@
                         <md-content layout-padding>
                             <md-input-container class="md-block">
                                 <label>First Name</label>
-                                <input required name="fisrtName" ng-model="firstName">
+                                <input name="fisrtName" ng-model="firstName">
                                 <div ng-messages="employeeForm.fisrtName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Last Name</label>
-                                <input required name="lastName" ng-model="lastName">
+                                <input name="lastName" ng-model="lastName">
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Age</label>
-                                <input required type="number" name="age" ng-model="age" ng-pattern="/^[0-9]*$/" />
+                                <input type="number" name="age" ng-model="age" ng-pattern="/^[0-9]*$/" />
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
@@ -43,7 +43,7 @@
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button ng-click="addEmployee()">Save</md-button>
                         <md-button>Update</md-button>
-                        <md-button>Clear</md-button>
+                        <md-button ng-click="clearModel()">Clear</md-button>
                     </md-card-actions>
                 </md-card>
             </div>

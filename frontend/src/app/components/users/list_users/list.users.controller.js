@@ -7,6 +7,7 @@ import moment from 'moment';
 
 const module = angular.module('list.users.controllers', ['ngMaterial'])
     .controller('ListUsersController', ['$scope', '$http', function($scope, $http) {
+        $scope.employees = [];
         $http({
             method: 'get', 
             url: 'http://localhost:3000/crud/employees'
@@ -33,10 +34,18 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
                 data: fd
             }).then(function (response) {
                 $scope.employees.push(fd);
+                $scope.clearModel();
             },function (error){
                 console.log(error, 'can not add data.');
             });
 
+        }
+        $scope.clearModel = function () {
+            $scope.firstName = '';
+            $scope.lastName = '';
+            $scope.age = '';
+            $scope.birthdate = '';
+            $scope.fileName = '';
         }
     }])
     .directive('apsUploadFile', apsUploadFile);
