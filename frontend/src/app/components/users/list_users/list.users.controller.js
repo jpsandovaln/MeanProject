@@ -39,14 +39,29 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
                 console.log(error, 'can not add data.');
             });
 
-        }
+        };
+
+        $scope.deleteEmployee = function (employee) {
+            $http({
+                method: 'DELETE',
+                url: 'http://localhost:3000/crud/employees/' + employee._id
+            })
+            .then(function(response) {
+                const index = $scope.employees.indexOf(employee);
+                $scope.employees.splice(index, 1);
+            }, function(rejection) {
+                console.log(rejection.data);
+            });
+            
+        };
+
         $scope.clearModel = function () {
             $scope.firstName = '';
             $scope.lastName = '';
             $scope.age = '';
             $scope.birthdate = '';
             $scope.fileName = '';
-        }
+        };
     }])
     .directive('apsUploadFile', apsUploadFile);
 
