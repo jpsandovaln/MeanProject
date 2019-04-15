@@ -12,21 +12,21 @@
                         <md-content layout-padding>
                             <md-input-container class="md-block">
                                 <label>First Name</label>
-                                <input required name="fisrtName" ng-model="employee.firstName">
+                                <input required name="fisrtName" ng-model="firstName">
                                 <div ng-messages="employeeForm.fisrtName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Last Name</label>
-                                <input required name="lastName" ng-model="employee.lastName">
+                                <input required name="lastName" ng-model="lastName">
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Age</label>
-                                <input required type="number" name="age" ng-model="employee.age" ng-pattern="/^[0-9]*$/" />
+                                <input required type="number" name="age" ng-model="age" ng-pattern="/^[0-9]*$/" />
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
@@ -35,13 +35,13 @@
                                 <aps-upload-file></aps-upload-file>
                             </md-input-container>
                             <md-input-container  flex="50">
-                                <label>Birthday</label>
-                                <md-datepicker ng-model="employee.birthday"></md-datepicker>
+                                <label>Birthdate</label>
+                                <md-datepicker ng-model="birthday"></md-datepicker>
                             </md-input-container>
                         </md-content>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button>Save</md-button>
+                        <md-button ng-click="addEmployee()">Save</md-button>
                         <md-button>Update</md-button>
                         <md-button>Clear</md-button>
                     </md-card-actions>
@@ -73,16 +73,19 @@
                                 <h2>Age</h2>
                             </div>
                             <div flex>
-                                <h2>Birthday</h2>
+                                <h2>Birthdate</h2>
                             </div>
                             <div flex>
                                 <h2>Image</h2>
                             </div>
                             <div flex>
-                                <h2>Operations</h2>
+                                <h2>Edit</h2>
+                            </div>
+                            <div flex>
+                                <h2>Delete</h2>
                             </div>
                         </div>
-                        <div ng-repeat="employee in employees" layout="row" layout-xs="column">
+                        <div ng-click="bindSelectedEmployee(employee)" ng-repeat="employee in employees" layout="row" layout-xs="column">
                             <div flex>
                                 <p>{{ employee.firstName }}</p>
                             </div>
@@ -97,12 +100,14 @@
                             </div>
                             <div flex>
                                 <a href="{{ employee.image }}" target="_blank">
-                                    <img [src]="{{ employee.image }}" style="width:50px;height:50px;">
+                                    <img src="{{ employee.image }}" style="width:50px;height:50px;">
                                 </a>
                             </div>
                             <div flex>
-                                <md-button class="md-raised" ng-click="acceptOffer();"> Edit </md-button>
-                                <md-button class="md-raised" ng-click="acceptOffer();"> Delete </md-button>
+                                <md-button class="md-raised" ng-click="editEmployee(employee)"> Edit </md-button>
+                            </div>
+                            <div flex>
+                                <md-button class="md-raised" ng-click="deleteEmployee(employee)"> Delete </md-button>
                             </div>
                         </div>
                     </div>

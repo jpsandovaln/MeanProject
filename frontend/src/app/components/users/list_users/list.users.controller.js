@@ -2,6 +2,8 @@ import 'angular';
 import 'angular-material';
 import 'angular-aria';
 import $ from "jquery";
+import moment from 'moment';
+
 
 const module = angular.module('list.users.controllers', ['ngMaterial'])
     .controller('ListUsersController', ['$scope', '$http', function($scope, $http) {
@@ -14,6 +16,28 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         },function (error){
             console.log(error, 'can not get data.');
         });
+
+        $scope.addEmployee = function() {
+            const fd = new FormData();
+            fd.append('imageUpload', $scope.selectedFile);
+            fd.append('firstName', $scope.firstName);
+            fd.append('lastName', $scope.lastName);
+            fd.append('age', $scope.age);   
+            fd.append('birthdate', moment($scope.birthdate).format("YYYY-MM-DD"));   
+
+            console.log(fd);
+            $http({
+                method: 'post', 
+                url: 'http://localhost:3000/crud/employees',
+                headers: { 'Content-Type': undefined },
+                data: fd
+            }).then(function (response) {
+                $scope.employees.push(fd);
+            },function (error){
+                console.log(error, 'can not add data.');
+            });
+
+        }
     }])
     .directive('apsUploadFile', apsUploadFile);
 
@@ -43,6 +67,8 @@ function apsUploadFileLink(scope, element, attrs) {
   input.on('change', function(e) {
     var files = e.target.files;
     if (files[0]) {
+      scope.selectedFile = files[0];
+      console.log(scope.selectedFile);
       scope.fileName = files[0].name;
     } else {
       scope.fileName = null;
