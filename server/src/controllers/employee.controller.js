@@ -50,11 +50,9 @@ export default class EmployeeController {
     getBirthdayList() {
         return (req, res) => {
             var today = new Date();
-            var birthdate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            console.log(birthdate);
-            Employee.find({"birthdate": birthdate})
+            var birthdate =  '-' + (today.getMonth()+1) + '-' + today.getDate();
+        Employee.find({"birthdate": {'$regex' : '.*' + birthdate + '.*'}})
             .then((employees) => {
-                console.log(birthdate);
                 res.json(employees);
             });
         }
