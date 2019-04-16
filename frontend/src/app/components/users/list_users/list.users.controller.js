@@ -11,7 +11,7 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         $scope.showAllEmployee = function() {
             $http({
                 method: 'get', 
-                url: 'http://localhost:3000/crud/employees'
+                url: 'http://172.21.19.100:3000/crud/employees'
             }).then(function (response) {
                 console.log(response, 'res');
                 $scope.employees = response.data;
@@ -29,7 +29,7 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             fd.append('birthdate', moment($scope.birthdate).format("YYYY-MM-DD"));   
             $http({
                 method: 'post', 
-                url: 'http://localhost:3000/crud/employees',
+                url: 'http://172.21.19.100:3000/crud/employees',
                 headers: { 'Content-Type': undefined },
                 data: fd
             }).then(function (response) {
@@ -49,11 +49,13 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         };
 
         $scope.fillData = function(employee) {
+            const parts = employee.birthdate.split('-');
+            const birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
             $scope.selectedEmployee = employee;
             $scope.firstName = employee.firstName;
             $scope.lastName = employee.lastName;
             $scope.age = employee.age;
-            $scope.birthday = new Date(employee.birthdate);
+            $scope.birthdate = birthdate;
         }
 
         $scope.editEmployee = function() {
@@ -63,10 +65,9 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             fd.append('lastName', $scope.lastName);
             fd.append('age', $scope.age);   
             fd.append('birthdate', moment($scope.birthdate).format("YYYY-MM-DD"));   
-
             $http({
                 method: 'put', 
-                url: 'http://localhost:3000/crud/employees/' + $scope.selectedEmployee._id,
+                url: 'http://172.21.19.100:3000/crud/employees/' + $scope.selectedEmployee._id,
                 headers: { 'Content-Type': undefined },
                 data: fd
             }).then(function (response) {
@@ -81,7 +82,7 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         $scope.deleteEmployee = function (employee) {
             $http({
                 method: 'DELETE',
-                url: 'http://localhost:3000/crud/employees/' + employee._id
+                url: 'http://172.21.19.100:3000/crud/employees/' + employee._id
             })
             .then(function(response) {
                 const index = $scope.employees.indexOf(employee);
