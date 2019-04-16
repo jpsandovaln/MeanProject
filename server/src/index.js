@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-
+import config from './config/environment';
 import DataBaseConnection from './database/database';
 
 const app = express();
@@ -11,22 +11,21 @@ const conn = new DataBaseConnection();
 conn.getDataBaseConnection();
 
 // Constants
-const PORT_NUMBER = 3000;
 const PORT = 'port';
 
 // Setting
-app.set(PORT, process.env.PORT || PORT_NUMBER);
+app.set(PORT, process.env.PORT || config.serverPort);
 
 // Midlewares
 app.use(morgan('dev'));
-app.use('/uploads', express.static('uploads'));
+app.use(`/${config.uploadFolder}`, express.static(config.uploadFolder));
 app.use(express.json());
-app.use(cors({ origin: 'http://172.21.19.17:4200' }));
+app.use(cors({ origin: config.cors }));
 
 // Routes
 app.use('/crud/employees', require('./routes/employee.route'));
 
 // Starting server
 app.listen(app.get(PORT), () => {
-    console.info(`Running on port ${PORT_NUMBER}`);
+    console.info(`Running on port ${config.serverPort}`);
 });

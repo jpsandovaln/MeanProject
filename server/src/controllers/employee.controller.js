@@ -3,16 +3,20 @@ import CrytoFile from '../commons/convertions/crypto.data';
 import Schedule from '../commons/schedule';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import config from '../config/environment';
+import message from '../commons/constants/messages';
 
 export default class EmployeeController {
+    
     constructor() {
         this.map = new Map();
+        this.imageUri = `http://${config.serverHost}:${config.serverPort}/`;
     }
 
     uploadSingle() {
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, './uploads/');
+                cb(null, `./${config.uploadFolder}/`);
             },
             filename: (req, file, cb) => {
                 const newImageName = new Date().getTime() + '_' + file.originalname;
@@ -24,7 +28,7 @@ export default class EmployeeController {
             if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
                 cb(null, true);
             } else {
-                cb(new Error('only could upload image/jpeg or image/png'), false);
+                cb(new Error(message.validImageFormat), false);
             }
         };
 
@@ -87,7 +91,7 @@ export default class EmployeeController {
                     birthdate,
                     lastName: req.body.lastName,
                     age: req.body.age,
-                    image: 'http://172.21.19.100:3000/' + req.file.path,
+                    image: `${this.imageUri}/${req.file.path}`,
                     checkSumImage: md5
                 });
                 return employee.save().then();
@@ -97,7 +101,7 @@ export default class EmployeeController {
                 const task = schedule.getBirthdateSchedule(req.body.firstName);
                 this.map.set(employee, task);
                 task.start();
-                res.json({ status: 'Employee created' });
+                res.json({ status: message.successInsertEmp });
             });
         };
     }
@@ -112,13 +116,13 @@ export default class EmployeeController {
                     lastName: req.body.lastName,
                     birthdate: req.body.birthdate,
                     age: req.body.age,
-                    image: 'http://172.21.19.100:3000/' + req.file.path,
+                    image: `${this.imageUri}/${req.file.path}`,
                     checkSumImage: md5
                 };
                 return Employee.findByIdAndUpdate(req.params.id, { $set: employee }, { new: true });
             })
             .then(() => {
-                res.json({ status: 'Employee updated' });
+                res.json({ status: message.successUpdateEmp });
             });
         };
     }
@@ -127,7 +131,7 @@ export default class EmployeeController {
         return (req, res) => {
             Employee.findByIdAndRemove(req.params.id)
             .then(() => {
-                res.json({ status: 'Employee Deleted' });
+                res.json({ status: message.successDeleteEmp });
             });
         };
     }
