@@ -6,17 +6,19 @@ import moment from 'moment';
 
 
 const module = angular.module('list.users.controllers', ['ngMaterial'])
-    .controller('ListUsersController', ['$scope', '$http', function($scope, $http) {
+    .controller('ListUsersController', ['$scope', '$mdToast', '$http', function($scope, $mdToast, $http) {
         $scope.employees = [];
-        $http({
-            method: 'get', 
-            url: 'http://172.21.19.100:3000/crud/employees'
-        }).then(function (response) {
-            console.log(response, 'res');
-            $scope.employees = response.data;
-        },function (error){
-            console.log(error, 'can not get data.');
-        });
+        $scope.showAllEmployee = function() {
+          $http({
+              method: 'get', 
+              url: 'http://localhost:3000/crud/employees'
+          }).then(function (response) {
+              console.log(response, 'res');
+              $scope.employees = response.data;
+          },function (error){
+              console.log(error, 'can not get data.');
+          });
+        };
 
         $scope.addEmployee = function() {
             const fd = new FormData();
@@ -25,18 +27,20 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             fd.append('lastName', $scope.lastName);
             fd.append('age', $scope.age);   
             fd.append('birthdate', moment($scope.birthdate).format("YYYY-MM-DD"));   
-
+            console.log($scope.birthdate);
             console.log(fd);
             $http({
                 method: 'post', 
-                url: 'http://172.21.19.100:3000/crud/employees',
+                url: 'http://localhost:3000/crud/employees',
                 headers: { 'Content-Type': undefined },
                 data: fd
             }).then(function (response) {
                 $scope.employees.push(fd);
+                $scope.showMessage('Inserted Data.');
                 $scope.clearModel();
+                $scope.showAllEmployee();
             },function (error){
-                console.log(error, 'can not add data.');
+              $scope.showMessage('can not update data.');
             });
 
         };
@@ -44,11 +48,16 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         $scope.selectedEmployee = function(employee) {
             console.log('selected:');
             console.log(employee);
-            //$scope.selectedEmployee = employee;
-            $scope.firstName = '';
-            $scope.lastName = 's';
-            $scope.age = '10';
+            $scope.selectedEmployee = employee;
         };
+
+        $scope.fillData = function(employee) {
+            $scope.selectedEmployee = employee;
+            $scope.firstName = employee.firstName;
+            $scope.lastName = employee.lastName;
+            $scope.age = employee.age;
+            $scope.birthday = new Date(employee.birthdate);
+        }
 
         $scope.editEmployee = function() {
           const fd = new FormData(); 
@@ -61,13 +70,15 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
           console.log(fd);
           $http({
               method: 'put', 
-              url: 'http://172.21.19.100:3000/crud/employees/' + $scope.selectedEmployee._id,
+              url: 'http://localhost:3000/crud/employees/' + $scope.selectedEmployee._id,
               headers: { 'Content-Type': undefined },
               data: fd
           }).then(function (response) {
               $scope.clearModel();
+              $scope.showMessage('Updated Data.');
+              $scope.showAllEmployee();
           },function (error){
-              console.log(error, 'can not update data.');
+               $scope.showMessage('can not update data.');
           });
 
       };
@@ -75,11 +86,12 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
         $scope.deleteEmployee = function (employee) {
             $http({
                 method: 'DELETE',
-                url: 'http://172.21.19.100:3000/crud/employees/' + employee._id
+                url: 'http://localhost:3000/crud/employees/' + employee._id
             })
             .then(function(response) {
                 const index = $scope.employees.indexOf(employee);
                 $scope.employees.splice(index, 1);
+                $scope.showMessage('Deleted Data.');
             }, function(rejection) {
                 console.log(rejection.data);
             });
@@ -95,6 +107,15 @@ const module = angular.module('list.users.controllers', ['ngMaterial'])
             $scope.birthdate = '';
             $scope.fileName = '';
         };
+
+        $scope.showMessage = function(message) {
+          $mdToast.show(
+            $mdToast.simple()
+              .textContent(message)
+              .position('top')
+            ); 
+        };
+        $scope.showAllEmployee();
     }])
     .directive('apsUploadFile', apsUploadFile);
 
