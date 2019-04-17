@@ -1,6 +1,5 @@
 import Employee from '../models/employee';
 import CrytoFile from '../commons/convertions/crypto.data';
-import Schedule from '../commons/schedule';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import config from '../config/environment';
@@ -9,7 +8,6 @@ import message from '../commons/constants/messages';
 export default class EmployeeController {
     
     constructor() {
-        this.map = new Map();
         this.imageUri = `http://${config.serverHost}:${config.serverPort}`;
     }
 
@@ -51,23 +49,23 @@ export default class EmployeeController {
             });
         };
     }
+ 
     getBirthdayList() {
-        return (req, res) => {
-            var today = new Date();
-            // **** TO DO: fix this logic ****
-            let month = (today.getMonth() + 1);
-            if (month < 10) {
-                month = '0' + month;
-            }
-            // *******************************
-            var birthdate =  '-' + month + '-' + today.getDate();
-            console.log(birthdate);
-            console.log(today);
-        Employee.find({"birthdate": {'$regex' : '.*' + birthdate + '.*'}})
-            .then((employees) => {
-                res.json(employees);
-            });
+        var today = new Date();
+        let month = (today.getMonth() + 1);
+        if (month < 10) {
+            month = '0' + month;
         }
+        var birthdate =  '-' + month + '-' + today.getDate();
+        return Employee.find({"birthdate": {'$regex' : '.*' + birthdate + '.*'}});
+    }
+
+    getAllEmployeesInBirthday() {
+        return (req, res) => {
+            this.getBirthdayList().then((empl) => {
+                res.json(empl); 
+            });
+        };
     }
 
     getEmployee() {
@@ -97,10 +95,6 @@ export default class EmployeeController {
                 return employee.save().then();
             })
             .then((employee) => {
-                const schedule = new Schedule(new Date(birthdate));
-                const task = schedule.getBirthdateSchedule(req.body.firstName);
-                this.map.set(employee, task);
-                task.start();
                 res.json({ status: message.successInsertEmp });
             });
         };

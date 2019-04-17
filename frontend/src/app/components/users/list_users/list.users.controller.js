@@ -13,7 +13,7 @@ export default class ListUsersController {
     showAllEmployee() {
         this.$http({
             method: 'get', 
-            url: 'http://localhost:3000/crud/employees'
+            url: 'http://172.21.19.100:3000/crud/employees'
         }).then((response) => {
             console.log(response, 'res');
             this.employees = response.data;
@@ -31,7 +31,7 @@ export default class ListUsersController {
         fd.append('birthdate', moment(this.birthdate).format("YYYY-MM-DD"));   
         this.$http({
             method: 'post', 
-            url: 'http://localhost:3000/crud/employees',
+            url: 'http://172.21.19.100:3000/crud/employees',
             headers: { 'Content-Type': undefined },
             data: fd
         }).then((response) => {
@@ -67,7 +67,7 @@ export default class ListUsersController {
         fd.append('birthdate', moment(this.birthdate).format("YYYY-MM-DD"));   
         this.$http({
             method: 'put', 
-            url: 'http://localhost:3000/crud/employees/' + this.selectedEmployee._id,
+            url: 'http://172.21.19.100:3000/crud/employees/' + this.selectedEmployee._id,
             headers: { 'Content-Type': undefined },
             data: fd
         }).then((response) => {
@@ -82,7 +82,7 @@ export default class ListUsersController {
     deleteEmployee(employee) {
         this.$http({
             method: 'DELETE',
-            url: 'http://localhost:3000/crud/employees/' + employee._id
+            url: 'http://172.21.19.100:3000/crud/employees/' + employee._id
         })
         .then((response) => {
             const index = this.employees.indexOf(employee);

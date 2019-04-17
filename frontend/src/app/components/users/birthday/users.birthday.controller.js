@@ -5,7 +5,7 @@ export default class BirthdayController {
         this.$interval = $interval;
         this.$http = $http;
         this.$routeParams = $routeParams;
-        this.urlBirthday = 'http://localhost:3000/crud/employees/birthdaylist';
+        this.urlBirthday = 'http://172.21.19.100:3000/crud/employees/birthdaylist';
         this.getBirthdayList();
         this.$scope.imgBanner = "./resources/happybanner.jpg"
         this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
