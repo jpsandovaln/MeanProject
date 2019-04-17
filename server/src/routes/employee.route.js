@@ -16,7 +16,7 @@ router.put('/:id', employeeController.uploadSingle(), employeeController.editEmp
 const sche = `00 00 11 * * *`; 
 const task = cron.schedule(sche, () => {
     employeeController.getBirthdayList().then((empl) => {
-        if (empl.length) {
+        if (empl.length > 0) {
             console.log(`Birthday = we have ${empl.length} employees`);
             console.log('http://172.21.19.17:4200/#!/birthday/');
         } else {
