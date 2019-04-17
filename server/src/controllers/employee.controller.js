@@ -4,11 +4,15 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import config from '../config/environment';
 import message from '../commons/constants/messages';
+import Schedule from '../commons/schedule';
 
 export default class EmployeeController {
     
     constructor() {
         this.imageUri = `http://${config.serverHost}:${config.serverPort}`;
+        const schedule = new Schedule(new Date(), this);
+        const task = schedule.getBirthdateSchedule();
+        task.start();
     }
 
     uploadSingle() {

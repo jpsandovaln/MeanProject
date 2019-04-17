@@ -36,7 +36,6 @@ export default class BirthdayController {
                 this.$scope.employee_name = this.$scope.employees[index].firstName + ' ' + this.$scope.employees[index].lastName;
                 this.$scope.imgEmployee = this.$scope.employees[index].image;
             } else {
-                console.log(Object.keys(response.data).length);
                 if (Object.keys(response.data).length > 0) {
                     this.$scope.employee = response.data;
                     this.$scope.employee_name = this.$scope.employee.firstName + ' ' + this.$scope.employee.lastName;
