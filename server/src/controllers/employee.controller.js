@@ -70,9 +70,20 @@ export default class EmployeeController {
 
     getEmployee() {
         return (req, res) => {
+            console.log(req.params);
             Employee.findById(req.params.id)
             .then((employee) => {
-                res.json(employee);
+                let result;
+                if (employee === null) {
+                    result = {};
+                } else {
+                    result = employee;
+                }
+                res.json(result);
+            })
+            .catch(err => {
+                console.log(err);
+                res.json({});
             });
         };
     }

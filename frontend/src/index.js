@@ -24,6 +24,10 @@ appModule
                 template: require('./app/components/users/birthday/users.birthday.view.html'),
                 controller: 'UserBirthdayController'
             })
+            .when('/birthday/:id', {
+                template: require('./app/components/users/birthday/users.birthday.view.html'),
+                controller: 'UserBirthdayController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
