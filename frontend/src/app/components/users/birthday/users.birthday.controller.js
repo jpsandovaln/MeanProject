@@ -9,7 +9,7 @@ export default class BirthdayController {
         this.getBirthdayList();
         this.$scope.imgBanner = "./resources/happybanner.jpg"
         this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
-        this.$scope.pthoto1 = "./resources/photo1.jpg"
+        this.$scope.default = "./resources/default.jpg"
         this.$scope.employee_name = $routeParams.employee_name;
     }
 
@@ -24,6 +24,8 @@ export default class BirthdayController {
                 index = this.$scope.employees.length - 1;
                 this.$scope.employee_name = this.$scope.employees[index].firstName + ' ' + this.$scope.employees[index].lastName;
                 this.$scope.imgEmployee = this.$scope.employees[index].image;
+            } else {
+                this.$scope.imgEmployee = this.$scope.default;
             }
         }, function (error) {
             console.log(error, 'can not get data.');
