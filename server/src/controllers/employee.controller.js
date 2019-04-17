@@ -10,7 +10,7 @@ export default class EmployeeController {
     
     constructor() {
         this.map = new Map();
-        this.imageUri = `http://${config.serverHost}:${config.serverPort}/`;
+        this.imageUri = `http://${config.serverHost}:${config.serverPort}`;
     }
 
     uploadSingle() {

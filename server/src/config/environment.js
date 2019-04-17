@@ -6,7 +6,7 @@ const config = {
         serverPort: 3000,
         db: 'db-crud-employee-birth',
         uri: 'mongodb://localhost/',
-        serverHost: '172.21.19.100',
+        serverHost: 'localhost',
         cors: [
             'http://172.21.19.17:4200',
             'http://localhost:4200'

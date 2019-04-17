@@ -1,4 +1,4 @@
-<form name="employeeForm" ng-controller="ListUsersController">
+<form name="employeeForm" ng-controller="listUsersController">
     <div style="margin-right: auto; margin-left: auto; width: 700px;"  ng-cloak>
         <md-content class="md-padding" layout="column" layout="row">
             <div flex-xs flex-gt-xs="50" layout="column">
@@ -12,21 +12,21 @@
                         <md-content layout-padding>
                             <md-input-container class="md-block">
                                 <label>First Name</label>
-                                <input name="fisrtName" ng-model="firstName">
+                                <input name="fisrtName" ng-model="userCtrl.firstName">
                                 <div ng-messages="employeeForm.fisrtName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Last Name</label>
-                                <input name="lastName" ng-model="lastName">
+                                <input name="lastName" ng-model="userCtrl.lastName">
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Age</label>
-                                <input type="number" name="age" ng-model="age" ng-pattern="/^[0-9]*$/" />
+                                <input type="number" name="age" ng-model="userCtrl.age" ng-pattern="/^[0-9]*$/" />
                                 <div ng-messages="employeeForm.lastName.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
@@ -36,14 +36,14 @@
                             </md-input-container>
                             <md-input-container  flex="50">
                                 <label>Birthdate</label>
-                                <md-datepicker ng-model="birthdate"></md-datepicker>
+                                <md-datepicker ng-model="userCtrl.birthdate"></md-datepicker>
                             </md-input-container>
                         </md-content>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button ng-click="addEmployee()">Save</md-button>
-                        <md-button ng-click="editEmployee()">Update</md-button>
-                        <md-button ng-click="clearModel()">Clear</md-button>
+                        <md-button ng-click="userCtrl.addEmployee()">Save</md-button>
+                        <md-button ng-click="userCtrl.editEmployee()">Update</md-button>
+                        <md-button ng-click="userCtrl.clearModel()">Clear</md-button>
                     </md-card-actions>
                 </md-card>
             </div>
@@ -85,7 +85,7 @@
                                 <h2>Delete</h2>
                             </div>
                         </div>
-                        <div ng-click="bindSelectedEmployee(employee)" ng-repeat="employee in employees" layout="row" layout-xs="column">
+                        <div ng-repeat="employee in userCtrl.employees" layout="row" layout-xs="column">
                             <div flex>
                                 <p>{{ employee.firstName }}</p>
                             </div>
@@ -104,10 +104,10 @@
                                 </a>
                             </div>
                             <div flex>
-                                <md-button class="md-raised" ng-click="fillData(employee)"> Edit </md-button>
+                                <md-button class="md-raised" ng-click="userCtrl.fillData(employee)"> Edit </md-button>
                             </div>
                             <div flex>
-                                <md-button class="md-raised" ng-click="deleteEmployee(employee)"> Delete </md-button>
+                                <md-button class="md-raised" ng-click="userCtrl.deleteEmployee(employee)"> Delete </md-button>
                             </div>
                         </div>
                     </div>

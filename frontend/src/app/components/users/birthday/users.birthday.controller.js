@@ -5,7 +5,7 @@ export default class BirthdayController {
         this.$interval = $interval;
         this.$http = $http;
         this.$routeParams = $routeParams;
-        this.urlBirthday = 'http://172.21.19.100:3000/crud/employees/birthdaylist';
+        this.urlBirthday = 'http://localhost:3000/crud/employees/birthdaylist';
         this.getBirthdayList();
         this.$scope.imgBanner = "./resources/happybanner.jpg"
         this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
@@ -22,9 +22,9 @@ export default class BirthdayController {
             let index;
             if (this.$scope.employees.length > 0) {
                 index = this.$scope.employees.length - 1;
+                this.$scope.employee_name = this.$scope.employees[index].firstName + ' ' + this.$scope.employees[index].lastName;
+                this.$scope.imgEmployee = this.$scope.employees[index].image;
             }
-            this.$scope.employee_name = this.$scope.employees[index].firstName + ' ' + this.$scope.employees[index].lastName;
-            this.$scope.imgEmployee = this.$scope.employees[index].image;
         }, function (error) {
             console.log(error, 'can not get data.');
         });
