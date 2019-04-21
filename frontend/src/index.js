@@ -20,7 +20,7 @@ appModule
                 controller: 'listUsersController',
                 controllerAs: 'userCtrl'
             })
-            .when('/birthday/', {
+            .when('/birthday', {
                 template: require('./app/components/users/birthday/users.birthday.view.html'),
                 controller: 'UserBirthdayController'
             })
