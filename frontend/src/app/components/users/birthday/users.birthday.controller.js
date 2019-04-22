@@ -15,8 +15,6 @@ export default class BirthdayController {
         } else {
             this.urlBirthday = `${this.serverUri}/${this.employee_id}`;
         }
-
-        console.log(this.urlBirthday);
         this.getBirthdayList();
         this.$scope.imgBanner = "./resources/happybanner.jpg"
         this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
