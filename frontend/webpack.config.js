@@ -15,7 +15,7 @@ module.exports = {
 		]
 	},
 	devServer: {
-		host: "172.21.19.17",
+		host: "0.0.0.0",
 		port: 4200,
 		contentBase: "./build",
 		inline: true,
