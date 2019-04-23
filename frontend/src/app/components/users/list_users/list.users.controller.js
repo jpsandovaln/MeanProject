@@ -8,7 +8,11 @@ export default class ListUsersController {
         this.$http = $http;
         this.employees = [];
         this.$scope.selectedFile;
-        this.serverUri = `http://${config.serverHost}:${config.serverPort}/crud/employees`
+        this.serverUri = `http://${config.serverHost}:${config.serverPort}/crud/employees`;
+        this.BASE_URL = `http://${config.serverHost}:${config.serverPort}`;
+    }
+
+    $onInit() {
         this.showAllEmployee();
     }
 
@@ -17,7 +21,6 @@ export default class ListUsersController {
             method: 'get', 
             url: this.serverUri
         }).then((response) => {
-            console.log(response, 'res');
             this.employees = response.data;
         }, (error) => {
             console.log(error, 'can not get data.');

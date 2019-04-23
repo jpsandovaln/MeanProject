@@ -15,19 +15,21 @@ export default class BirthdayController {
         } else {
             this.urlBirthday = `${this.serverUri}/${this.employee_id}`;
         }
-        this.getBirthdayList();
         this.$scope.imgBanner = "./resources/happybanner.jpg"
         this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
         this.$scope.default = "./resources/default.jpg"
         this.$scope.employee_name = $routeParams.employee_name;
     }
 
+    $onInit() {
+        this.getBirthdayList();
+    }
+
     getBirthdayList() {
         this.$http({
             method: 'get', 
             url: this.urlBirthday
-        }).then( (response) => {
-            console.log(response.data);
+        }).then((response) => {
             if (Array.isArray(response.data) && response.data.length > 0) {
                 this.$scope.employees = response.data;
                 let index = this.$scope.employees.length - 1;
@@ -43,7 +45,7 @@ export default class BirthdayController {
                 }
             }
 
-        }, function (error) {
+        }, (error) => {
             console.log(error, 'can not get data.');
         });
     }
