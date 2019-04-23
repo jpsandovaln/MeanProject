@@ -104,7 +104,7 @@ export default class EmployeeController {
                     birthdate,
                     lastName: req.body.lastName,
                     age: req.body.age,
-                    image: `${this.imageUri}/${req.file.path}`,
+                    image: `/${req.file.path}`,
                     checkSumImage: md5
                 });
                 return employee.save().then();
@@ -125,7 +125,7 @@ export default class EmployeeController {
                     lastName: req.body.lastName,
                     birthdate: req.body.birthdate,
                     age: req.body.age,
-                    image: `${this.imageUri}/${req.file.path}`,
+                    image: `/${req.file.path}`,
                     checkSumImage: md5
                 };
                 return Employee.findByIdAndUpdate(req.params.id, { $set: employee }, { new: true });
