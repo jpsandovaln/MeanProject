@@ -1,8 +1,6 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-// const webpack = require('webpack');
 const DotenvPlugin = require("webpack-dotenv-plugin");
-// const dotenv = require('dotenv').config();
 
 const basePath = __dirname;
 const distPath = "./build";
@@ -29,34 +27,13 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(gif|png|jpg|svg)$/i,
+        loaders: ["file-loader"]
+      },
+      {
         test: /\.js?$/,
         exclude: /node_modules/,
         loader: ["ng-annotate-loader", "babel-loader"]
-      },
-      {
-        test: /\.(gif|png|jpe?g|svg)$/i,
-        loaders: [
-          "file-loader",
-          {
-            loader: "image-webpack-loader",
-            query: {
-              mozjpeg: {
-                quality: "65-90",
-                progressive: true
-              },
-              gifsicle: {
-                interlaced: false
-              },
-              optipng: {
-                optimizationLevel: 7
-              },
-              pngquant: {
-                quality: "65-90",
-                speed: 4
-              }
-            }
-          }
-        ]
       },
       {
         test: /\.html$/,
@@ -74,8 +51,5 @@ module.exports = {
       sample: "./.env.example",
       path: "./.env"
     })
-    // new webpack.DefinePlugin({
-    //     "process.env": dotenv.parsed
-    // }),
   ]
 };
