@@ -2,7 +2,8 @@ import moment from 'moment';
 import config from '../../../../config/environment';
 
 export default class ListUsersController {
-    constructor($scope, $mdToast, $http){
+    constructor($scope, $mdToast, $http) {
+        'ngInject';
         this.$scope = $scope;
         this.$mdToast = $mdToast;
         this.$http = $http;
@@ -10,9 +11,6 @@ export default class ListUsersController {
         this.$scope.selectedFile;
         this.serverUri = `http://${config.serverHost}:${config.serverPort}/crud/employees`;
         this.BASE_URL = `http://${config.serverHost}:${config.serverPort}`;
-    }
-
-    $onInit() {
         this.showAllEmployee();
     }
 

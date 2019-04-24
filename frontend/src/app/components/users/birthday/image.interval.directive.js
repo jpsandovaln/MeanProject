@@ -1,5 +1,6 @@
 
 export default function ImageInterval($interval) {
+    'ngInject';
     function linkFunc(scope, element, attrs) {
         let index = 0;
         let stopTime = $interval(updateTime, 6000);
