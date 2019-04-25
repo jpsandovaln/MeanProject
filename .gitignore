@@ -63,4 +63,9 @@ typings/
 # server upload folder
 uploads/
 
+# Build folders
 server/build/
+frontend/build/
+
+# Env file
+.env

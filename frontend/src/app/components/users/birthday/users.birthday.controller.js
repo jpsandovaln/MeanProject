@@ -1,49 +1,49 @@
 
 import config from '../../../../config/environment';
 
+const defaultImg = require('../../../../resources/default.jpg');
+
 export default class BirthdayController {
-    constructor($scope, $interval, $http, $routeParams) {
-        this.$scope = $scope;
+    constructor($interval, $http, $routeParams) {
+        'ngInject';
         this.$interval = $interval;
         this.$http = $http;
         this.$routeParams = $routeParams;
         this.employee_id = this.$routeParams.id;
-        this.$scope.employees = [];
+        this.employees = [];
         this.serverUri = `http://${config.serverHost}:${config.serverPort}/crud/employees`;
         if (this.employee_id === undefined || this.employee_id === null) {
             this.urlBirthday = `${this.serverUri}/birthdaylist`;
         } else {
             this.urlBirthday = `${this.serverUri}/${this.employee_id}`;
         }
+        this.defaultImg = defaultImg;
+        this.employee_name = $routeParams.employee_name;
         this.getBirthdayList();
-        this.$scope.imgBanner = "./resources/happybanner.jpg"
-        this.$scope.backgroundImg = "./resources/backgroundImg.jpg"
-        this.$scope.default = "./resources/default.jpg"
-        this.$scope.employee_name = $routeParams.employee_name;
+
     }
 
     getBirthdayList() {
         this.$http({
             method: 'get', 
             url: this.urlBirthday
-        }).then( (response) => {
-            console.log(response.data);
+        }).then((response) => {
+            this.employeeImg = this.defaultImg;
             if (Array.isArray(response.data) && response.data.length > 0) {
-                this.$scope.employees = response.data;
-                let index = this.$scope.employees.length - 1;
-                this.$scope.employee_name = this.$scope.employees[index].firstName + ' ' + this.$scope.employees[index].lastName;
-                this.$scope.imgEmployee = this.$scope.employees[index].image;
+                this.employees = response.data;
+                let index = this.employees.length - 1;
+                this.employee_name = this.employees[index].firstName + ' ' + this.employees[index].lastName;
+                this.employeeImg = this.employees[index].image;
             } else {
                 if (Object.keys(response.data).length > 0) {
-                    this.$scope.employee = response.data;
-                    this.$scope.employee_name = this.$scope.employee.firstName + ' ' + this.$scope.employee.lastName;
-                    this.$scope.imgEmployee = this.$scope.employee.image;
+                    this.employee = response.data;
+                    this.employee_name = this.employee.firstName + ' ' + this.employee.lastName;
+                    this.employeeImg = this.employee.image;
                 } else {
-                    this.$scope.imgEmployee = this.$scope.default;
+                    this.employeeImg = this.defaultImg;
                 }
             }
-
-        }, function (error) {
+        }, (error) => {
             console.log(error, 'can not get data.');
         });
     }

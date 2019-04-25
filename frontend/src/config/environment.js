@@ -3,7 +3,7 @@ const env = 'development';
 const config = {
     development: {
         serverPort: 3000,
-        serverHost: '172.21.19.100',
+        serverHost: process.env.API_HOST,
     }
 };
 export default config[env];

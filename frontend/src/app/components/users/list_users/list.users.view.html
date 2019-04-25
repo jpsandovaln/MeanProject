@@ -1,4 +1,4 @@
-<form name="employeeForm" ng-controller="listUsersController">
+<form name="employeeForm">
     <div style="margin-right: auto; margin-left: auto; width: 700px;"  ng-cloak>
         <md-content class="md-padding" layout="column" layout="row">
             <div flex-xs flex-gt-xs="50" layout="column">
@@ -99,8 +99,8 @@
                                 <p>{{ employee.birthdate }}</p>
                             </div>
                             <div flex>
-                                <a href="{{ employee.image }}" target="_blank">
-                                    <img src="{{ employee.image }}" style="width:50px;height:50px;">
+                                <a href="{{ userCtrl.BASE_URL + employee.image }}" target="_blank">
+                                    <img src="{{ userCtrl.BASE_URL + employee.image }}" style="width:50px;height:50px;">
                                 </a>
                             </div>
                             <div flex>

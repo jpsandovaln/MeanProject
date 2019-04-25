@@ -1,6 +1,5 @@
 import express from 'express';
 import EmployeeController from '../controllers/employee.controller';
-import cron from 'node-cron';
 
 const router = express.Router();
 
