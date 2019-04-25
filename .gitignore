@@ -59,3 +59,13 @@ typings/
 
 # next.js build output
 .next
+
+# server upload folder
+uploads/
+
+# Build folders
+server/build/
+frontend/build/
+
+# Env file
+.env

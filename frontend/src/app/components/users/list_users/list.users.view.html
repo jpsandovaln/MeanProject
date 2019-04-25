@@ -1,0 +1,119 @@
+<form name="employeeForm">
+    <div style="margin-right: auto; margin-left: auto; width: 700px;"  ng-cloak>
+        <md-content class="md-padding" layout="column" layout="row">
+            <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title> 
+                        <md-card-title-text>
+                            <span class="md-headline">Employee</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <md-content layout-padding>
+                            <md-input-container class="md-block">
+                                <label>First Name</label>
+                                <input name="fisrtName" ng-model="userCtrl.firstName">
+                                <div ng-messages="employeeForm.fisrtName.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Last Name</label>
+                                <input name="lastName" ng-model="userCtrl.lastName">
+                                <div ng-messages="employeeForm.lastName.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Age</label>
+                                <input type="number" name="age" ng-model="userCtrl.age" ng-pattern="/^[0-9]*$/" />
+                                <div ng-messages="employeeForm.lastName.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="100">
+                                <aps-upload-file></aps-upload-file>
+                            </md-input-container>
+                            <md-input-container  flex="50">
+                                <label>Birthdate</label>
+                                <md-datepicker ng-model="userCtrl.birthdate"></md-datepicker>
+                            </md-input-container>
+                        </md-content>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click="userCtrl.addEmployee()">Save</md-button>
+                        <md-button ng-click="userCtrl.editEmployee()">Update</md-button>
+                        <md-button ng-click="userCtrl.clearModel()">Clear</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+    </div>
+
+
+<div style="margin-right: auto; margin-left: auto; width: 90%;" ng-cloak>
+    <md-content class="md-padding" layout="column" layout="row">
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card>
+                <md-card-title> 
+                    <md-card-title-text>
+                        <span class="md-headline">Employees List</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div>
+                        <div layout="row" layout-xs="column">
+                            <div flex>
+                                <h2>First Name</h2>
+                            </div>
+                            <div flex>
+                                <h2>Last Name</h2>
+                            </div>
+                            <div flex="5">
+                                <h2>Age</h2>
+                            </div>
+                            <div flex>
+                                <h2>Birthdate</h2>
+                            </div>
+                            <div flex>
+                                <h2>Image</h2>
+                            </div>
+                            <div flex>
+                                <h2>Edit</h2>
+                            </div>
+                            <div flex>
+                                <h2>Delete</h2>
+                            </div>
+                        </div>
+                        <div ng-repeat="employee in userCtrl.employees" layout="row" layout-xs="column">
+                            <div flex>
+                                <p>{{ employee.firstName }}</p>
+                            </div>
+                            <div flex>
+                                <p>{{ employee.lastName }}</p>
+                            </div>
+                            <div flex="5">
+                                <p>{{ employee.age }}</p>
+                            </div>
+                            <div flex>
+                                <p>{{ employee.birthdate }}</p>
+                            </div>
+                            <div flex>
+                                <a href="{{ userCtrl.BASE_URL + employee.image }}" target="_blank">
+                                    <img src="{{ userCtrl.BASE_URL + employee.image }}" style="width:50px;height:50px;">
+                                </a>
+                            </div>
+                            <div flex>
+                                <md-button class="md-raised" ng-click="userCtrl.fillData(employee)"> Edit </md-button>
+                            </div>
+                            <div flex>
+                                <md-button class="md-raised" ng-click="userCtrl.deleteEmployee(employee)"> Delete </md-button>
+                            </div>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>
+</form>
