@@ -8,11 +8,11 @@
                 <md-card>
                     <md-card-title style="text-align: center;">
                         <md-card-title-text>
-                            <span class="md-headline"><h2>{{employee_name}}</h2></span>
+                            <span class="md-headline"><h2>{{ birthdayCtrl.employee_name }}</h2></span>
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <img image-interval images="images" style="width: 600px; height: 400px" src="{{ birthdayCtrl.employeeImg }}">
+                        <img image-interval images="images" style="width: 600px; height: 400px" src="{{ birthdayCtrl.baseUri + birthdayCtrl.employeeImg }}">
                     </md-card-content>
                 </md-card>
             </div>

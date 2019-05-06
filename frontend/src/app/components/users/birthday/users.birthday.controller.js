@@ -11,11 +11,12 @@ export default class BirthdayController {
         this.$routeParams = $routeParams;
         this.employee_id = this.$routeParams.id;
         this.employees = [];
-        this.serverUri = `http://${config.serverHost}:${config.serverPort}/crud/employees`;
+        this.baseUri = `http://${config.serverHost}:${config.serverPort}`;
+        this.employeeRoute = `${this.baseUri}/crud/employees`;
         if (this.employee_id === undefined || this.employee_id === null) {
-            this.urlBirthday = `${this.serverUri}/birthdaylist`;
+            this.urlBirthday = `${this.employeeRoute}/birthdaylist`;
         } else {
-            this.urlBirthday = `${this.serverUri}/${this.employee_id}`;
+            this.urlBirthday = `${this.employeeRoute}/${this.employee_id}`;
         }
         this.defaultImg = defaultImg;
         this.employee_name = $routeParams.employee_name;
