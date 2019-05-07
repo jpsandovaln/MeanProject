@@ -10,24 +10,24 @@ export default class BirthdayController {
         this.$interval = $interval;
         this.$http = $http;
         this.$routeParams = $routeParams;
-        this.employee_id = this.$routeParams.id;
-        this.employee_firstName = this.$routeParams.firstName;
-        this.employee_lastName = this.$routeParams.lastName;
-        this.employee_photoUrl = this.$routeParams.photoUrl;
+        this.employeeId = this.$routeParams.id;
+        this.employeeFirstName = this.$routeParams.firstName;
+        this.employeeLastName = this.$routeParams.lastName;
+        this.employeePhotoUrl = this.$routeParams.photoUrl;
         this.employees = [];
         this.baseUri = `http://${config.serverHost}:${config.serverPort}`;
         this.employeeRoute = `${this.baseUri}/crud/employees`;
-        if (this.employee_id === undefined || this.employee_id === null) {
-            if (this.employee_firstName === undefined && this.employee_lastName === undefined && this.employee_photoUrl  === undefined) {
+        if (!this.employeeId) {
+            if (!this.employeeFirstName && !this.employeeLastName && !this.employeePhotoUrl) {
                 this.urlBirthday = `${this.employeeRoute}/birthdaylist`;
                 this.getBirthdayList();
             } else {
-                this.employee_name = this.employee_firstName + ' ' + this.employee_lastName;
+                this.employeeName = this.employeeFirstName + ' ' + this.employeeLastName;
                 this.baseUri = "";
-                this.employeeImg = this.employee_photoUrl;
+                this.employeeImg = this.employeePhotoUrl;
             }
         } else {
-            this.urlBirthday = `${this.employeeRoute}/${this.employee_id}`;   
+            this.urlBirthday = `${this.employeeRoute}/${this.employeeId}`;   
             this.getBirthdayList();
         }
     }
@@ -44,19 +44,19 @@ export default class BirthdayController {
             if (Array.isArray(response.data) && response.data.length > 0) {
                 this.employees = response.data;
                 let index = this.employees.length - 1;
-                this.employee_name = this.employees[index].firstName + ' ' + this.employees[index].lastName;
+                this.employeeName = this.employees[index].firstName + ' ' + this.employees[index].lastName;
                 this.employeeImg = this.employees[index].image;
             } else {
                 if (Object.keys(response.data).length > 0) {
                     this.employee = response.data;
-                    this.employee_name = this.employee.firstName + ' ' + this.employee.lastName;
+                    this.employeeName = this.employee.firstName + ' ' + this.employee.lastName;
                     this.employeeImg = this.employee.image;
                 } else {
                     this.employeeImg = this.defaultImg;
                 }
             }
         }, (error) => {
-            console.log(error, 'can not get data.');
+            console.er(error, 'can not get data.');
         });
     }
 }
