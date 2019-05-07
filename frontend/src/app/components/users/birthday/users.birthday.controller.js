@@ -1,8 +1,9 @@
 
 import config from '../../../../config/environment';
 
-const defaultImg = require('../../../../resources/default.jpg');
-
+/**
+ * Controller for Birthday
+ */
 export default class BirthdayController {
     constructor($interval, $http, $routeParams) {
         'ngInject';
@@ -10,20 +11,30 @@ export default class BirthdayController {
         this.$http = $http;
         this.$routeParams = $routeParams;
         this.employee_id = this.$routeParams.id;
+        this.employee_firstName = this.$routeParams.firstName;
+        this.employee_lastName = this.$routeParams.lastName;
+        this.employee_photoUrl = this.$routeParams.photoUrl;
         this.employees = [];
         this.baseUri = `http://${config.serverHost}:${config.serverPort}`;
         this.employeeRoute = `${this.baseUri}/crud/employees`;
         if (this.employee_id === undefined || this.employee_id === null) {
-            this.urlBirthday = `${this.employeeRoute}/birthdaylist`;
+            if (this.employee_firstName === undefined && this.employee_lastName === undefined && this.employee_photoUrl  === undefined) {
+                this.urlBirthday = `${this.employeeRoute}/birthdaylist`;
+                this.getBirthdayList();
+            } else {
+                this.employee_name = this.employee_firstName + ' ' + this.employee_lastName;
+                this.baseUri = "";
+                this.employeeImg = this.employee_photoUrl;
+            }
         } else {
-            this.urlBirthday = `${this.employeeRoute}/${this.employee_id}`;
+            this.urlBirthday = `${this.employeeRoute}/${this.employee_id}`;   
+            this.getBirthdayList();
         }
-        this.defaultImg = defaultImg;
-        this.employee_name = $routeParams.employee_name;
-        this.getBirthdayList();
-
     }
 
+    /**
+     * Method to get the employee's list. 
+     */
     getBirthdayList() {
         this.$http({
             method: 'get', 
