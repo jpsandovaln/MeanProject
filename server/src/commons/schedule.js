@@ -1,10 +1,14 @@
 import cron from 'node-cron';
-import http from 'http';
 import https from 'https';
+import dotenv from 'dotenv';
 
-export default class Schedule{
-    constructor(date, emplController){
-        this.$http = http;
+/**
+ * Class to tell jds to show the birthday's list
+ */
+export default class Schedule {
+    constructor(date, emplController) {
+        dotenv.config();
+        this.https = https;
         this.employees = [];
         this.emplController = emplController;
         this._day = date.getUTCFullYear();
@@ -12,61 +16,60 @@ export default class Schedule{
         this._day = date.getUTCDate();
     }
 
+    /**
+     * Method to config the schedule.
+     * @returns {schedule} the schedule with the time to sync with JDS.
+     */
     getBirthdateSchedule() {
-        const sche = `00 00 11 * * *`; 
+        const sche = '00 00 11 * * *';
         const task = cron.schedule(sche, () => {
-             this.emplController.getBirthdayList().then((empl) => {
+            this.emplController.getBirthdayList().then((empl) => {
                 if (empl.length > 0) {
-                    this.getData().then(({status, data}) => {
-                        console.log(data);
+                    this.getData().then(({ data }) => {
+                        console.info(data);
                     }, (error) => {
-                        next(error);
+                        console.error(error);
                     });
                 } else {
-                    console.log('nothing');
+                    console.info('nothing');
                 }
             });
         });
         return task;
     }
 
-    //GET https://172.21.19.25/api/v1/consumers/{:CONSUMER_API_KEY}/
-    //actions/EXTERNAL_APP?&appId=5cb78fa7a3800c0012d5f83f&maxInterruptTime=100&targetId={:targetId}
+    /**
+     * Method to do a Get request to JDS.
+     * @returns {Promise} request promise.
+     */
     getData() {
-        /*const options = {
-            host: '172.21.19.25',
-            port: '443',
-            path: '/api/v1/consumers/{:CONSUMER_API_KEY}/actions/EXTERNAL_APP?&appId=5cb78fa7a3800c0012d5f83f&maxInterruptTime=100&targetId={:targetId}',
-            method: 'GET'
-        };*/
         const options = {
-            host: '172.21.19.100',
-            port: '3000',
-            path: '/crud/employees',
+            host: process.env.JDS_HOST,
+            port: process.env.JDS_PORT,
+            path: `/api/v1/consumers/${process.env.CONSUMER_API_KEY}/actions/EXTERNAL_APP?&appID=${process.env.APP_ID}&maxInterruptTime=${process.env.MAX_INTERRUP_TIME}&targetId=${process.env.TARGET_ID}`,
             method: 'GET'
         };
         return new Promise((resolve, reject) => {
-            //let req = https.request(options, (res) => {
-            let req = http.request(options, (res) => {
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+            const req = this.https.request(options, (res) => {
                 let output = '';
-                console.log('rest::', options.host + ':' + res.statusCode);
+                console.info('rest::', options.host + ':' + res.statusCode);
                 res.setEncoding('utf8');
 
-                res.on('data', function (chunk) {
+                res.on('data', (chunk) => {
                     output += chunk;
                 });
 
                 res.on('end', () => {
                     try {
-                        let obj = JSON.parse(output);
+                        const obj = JSON.parse(output);
                         resolve({
                             statusCode: res.statusCode,
                             data: obj
                         });
-                    }
-                    catch(err) {
-                        console.error('rest::end', err);
-                        reject(err);
+                    } catch (error) {
+                        console.error('rest::end', error);
+                        reject(error);
                     }
                 });
             });
