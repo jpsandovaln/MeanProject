@@ -7,7 +7,7 @@ import message from '../commons/constants/messages';
 import Schedule from '../commons/schedule';
 
 export default class EmployeeController {
-    
+
     constructor() {
         this.imageUri = `http://${config.serverHost}:${config.serverPort}`;
         const schedule = new Schedule(new Date(), this);
@@ -53,28 +53,42 @@ export default class EmployeeController {
             });
         };
     }
- 
+
     getBirthdayList() {
-        var today = new Date();
-        let month = (today.getMonth() + 1);
-        if (month < 10) {
-            month = '0' + month;
-        }
-        var birthdate =  '-' + month + '-' + today.getDate();
-        return Employee.find({"birthdate": {'$regex' : '.*' + birthdate + '.*'}});
+        const today = new Date();
+        const month = (today.getMonth() + 1);
+        return Employee.aggregate([
+            {
+                $project: {
+                    day: { $dayOfMonth: '$birthdate' },
+                    month: { $month: '$birthdate' },
+                    document: '$$ROOT'
+                }
+            },
+            {
+                $match: {
+                    day: today.getDate(),
+                    month
+                }
+            },
+            {
+                $replaceRoot: { newRoot: '$document' }
+            }
+        ]);
     }
 
     getAllEmployeesInBirthday() {
         return (req, res) => {
-            this.getBirthdayList().then((empl) => {
-                res.json(empl); 
+            this.getBirthdayList()
+            .then((list) => {
+                console.info(list);
+                res.json(list);
             });
         };
     }
 
     getEmployee() {
         return (req, res) => {
-            console.log(req.params);
             Employee.findById(req.params.id)
             .then((employee) => {
                 let result;
@@ -83,10 +97,11 @@ export default class EmployeeController {
                 } else {
                     result = employee;
                 }
+
                 res.json(result);
             })
-            .catch(err => {
-                console.log(err);
+            .catch((error) => {
+                console.error(error);
                 res.json({});
             });
         };
@@ -95,7 +110,8 @@ export default class EmployeeController {
     createEmployee() {
         return (req, res) => {
             const cryto = new CrytoFile();
-            const birthdate = req.body.birthdate;
+            let { birthdate } = req.body;
+            birthdate = new Date(birthdate);
             cryto.getCheckSum(req.file.path)
             .then((md5) => {
                 const employee = new Employee({
@@ -109,7 +125,7 @@ export default class EmployeeController {
                 });
                 return employee.save().then();
             })
-            .then((employee) => {
+            .then(() => {
                 res.json({ status: message.successInsertEmp });
             });
         };

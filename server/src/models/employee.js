@@ -5,22 +5,28 @@ const { Schema } = mongoose;
 const EmployeeSchema = new Schema({
     firstName: {
         type: String,
-        require: true },
-    lastName: { 
+        require: true
+    },
+    lastName: {
         type: String,
-        require: true },
+        require: true
+    },
     age: {
-        type: Number, 
-        require: true },   
-    birthdate: { 
-        type: String, 
-        require: true},
-    image: { 
-        type: String, 
-        require: true },
-    checkSumImage: { 
-        type: String, 
-        require: true }
+        type: Number,
+        require: true
+    },
+    birthdate: {
+        type: Date,
+        require: true
+    },
+    image: {
+        type: String,
+        require: true
+    },
+    checkSumImage: {
+        type: String,
+        require: true
+    }
 });
 
 export default mongoose.model('Employee', EmployeeSchema);
