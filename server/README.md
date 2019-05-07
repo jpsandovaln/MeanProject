@@ -6,6 +6,8 @@
 
 ## Commands
 
+Before any command copy `.env.example` file to `.env` and replace the variables.
+
 * `gulp clean` removes build folder
 * `gulp build` creates production build
 * `gulp start` starts app in dev mode
