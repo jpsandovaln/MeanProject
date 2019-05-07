@@ -56,7 +56,7 @@ export default class BirthdayController {
                 }
             }
         }, (error) => {
-            console.er(error, 'can not get data.');
+            console.error(error, 'can not get data.');
         });
     }
 }
