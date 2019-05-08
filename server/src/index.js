@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import config from './config/environment';
 import DataBaseConnection from './database/database';
+import EmployeeRoute from './routes/employee.route';
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.use(`/${config.uploadFolder}`, express.static(config.uploadFolder));
 app.use(express.json());
 
 // Routes
-app.use('/crud/employees', require('./routes/employee.route'));
+const employeeRoute = new EmployeeRoute();
+app.use('/crud/employees', employeeRoute.getRoutes());
 
 // Starting server
 app.listen(app.get(PORT), () => {

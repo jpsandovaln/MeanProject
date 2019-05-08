@@ -5,4 +5,5 @@ const message = {
     successUpdateEmp: 'Employee Updated',
     successDeleteEmp: 'Employee Deleted'
 };
+
 export default message;

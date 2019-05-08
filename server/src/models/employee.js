@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
+/**
+ * Schema for employees.
+ */
 const EmployeeSchema = new Schema({
     firstName: {
         type: String,
