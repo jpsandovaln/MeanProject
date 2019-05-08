@@ -6,6 +6,9 @@ import config from '../config/environment';
 import message from '../commons/constants/messages';
 import Schedule from '../commons/schedule';
 
+/**
+ * Employee controller
+ */
 export default class EmployeeController {
 
     constructor() {

@@ -3,6 +3,7 @@ const message = {
     validImageFormat: 'Only could upload image/jpeg or image/png',
     successInsertEmp: 'Employee Created',
     successUpdateEmp: 'Employee Updated',
-    successDeleteEmp: 'Employee Deleted',
+    successDeleteEmp: 'Employee Deleted'
 };
+
 export default message;

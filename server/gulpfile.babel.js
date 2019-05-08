@@ -7,7 +7,7 @@ import nodemon from 'gulp-nodemon';
 import cache from 'gulp-cached';
 import obfuscator from 'gulp-javascript-obfuscator';
 
-const JS_SOURCES = ['src/**/*.js'];
+const JS_SOURCES = ['src/**/*.js', 'uploads'];
 const TARGET_DIR = 'build';
 const INDEX = path.join(TARGET_DIR, 'index.js');
 

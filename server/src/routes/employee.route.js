@@ -1,15 +1,33 @@
 import express from 'express';
 import EmployeeController from '../controllers/employee.controller';
 
-const router = express.Router();
+/**
+ * Class to define the routes used.
+ */
+export default class EmployeeRoute {
+    constructor() {
+        this.router = express.Router();
+        this.employeeController = new EmployeeController();
+        this.setRoutes();
+    }
 
-const employeeController = new EmployeeController();
+    /**
+     * Set all routes.
+     */
+    setRoutes() {
+        this.router.get('/', this.employeeController.getAllEmployees());
+        this.router.get('/birthdaylist/', this.employeeController.getAllEmployeesInBirthday());
+        this.router.get('/:id', this.employeeController.getEmployee());
+        this.router.post('/', this.employeeController.uploadSingle(), this.employeeController.createEmployee());
+        this.router.delete('/:id', this.employeeController.deleteEmployee());
+        this.router.put('/:id', this.employeeController.uploadSingle(), this.employeeController.editEmployee());
+    }
 
-router.get('/', employeeController.getAllEmployees());
-router.get('/birthdaylist/', employeeController.getAllEmployeesInBirthday());
-router.get('/:id', employeeController.getEmployee());
-router.post('/', employeeController.uploadSingle(), employeeController.createEmployee());
-router.delete('/:id', employeeController.deleteEmployee());
-router.put('/:id', employeeController.uploadSingle(), employeeController.editEmployee());
-
-module.exports = router;
+    /**
+     * Get all routes.
+     * @returns {Router} the routes to the application.
+     */
+    getRoutes() {
+        return this.router;
+    }
+}
