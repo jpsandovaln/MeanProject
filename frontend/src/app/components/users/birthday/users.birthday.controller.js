@@ -82,9 +82,6 @@ export default class BirthdayController {
                     index = 0;
                 }
             }, 6000);
-        } else {
-            return;
-        } 
-        
+        }
     }
 }
