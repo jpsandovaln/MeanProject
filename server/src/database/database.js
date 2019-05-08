@@ -8,6 +8,7 @@ import message from '../commons/constants/messages';
 export default class DataBaseConnection {
 
     constructor() {
+        this.message = message;
         this.URI = `${config.uri}${config.db}`;
     }
 
@@ -17,7 +18,7 @@ export default class DataBaseConnection {
      */
     getDataBaseConnection() {
         mongoose.connect(this.URI)
-        .then(() => console.info(message.dbConnected))
+        .then(() => console.info(this.message.dbConnected))
         .catch((error) => console.error(error));
         return mongoose;
     }

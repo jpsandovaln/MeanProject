@@ -6,7 +6,6 @@ import EmployeeController from '../controllers/employee.controller';
  */
 export default class EmployeeRoute {
     constructor() {
-        'ngInject';
         this.router = express.Router();
         this.employeeController = new EmployeeController();
         this.setRoutes();
