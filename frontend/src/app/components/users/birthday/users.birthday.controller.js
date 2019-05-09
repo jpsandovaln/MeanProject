@@ -1,6 +1,7 @@
 
 import config from '../../../../config/environment';
 import defaultImg from '../../../../resources/default.jpg';
+import background from '../../../../resources/backgroundImg.jpg';
 
 /**
  * Controller for Birthday
@@ -18,6 +19,7 @@ export default class BirthdayController {
         this.employeePhotoUrl = this.$routeParams.photoUrl;
         this.employees = [];
         this.defaultImg = defaultImg;
+        this.background = background;
         this.baseUri = `http://${config.serverHost}:${config.serverPort}`;
         this.employeeRoute = `${this.baseUri}/crud/employees`;
         this.employeeName = '';
