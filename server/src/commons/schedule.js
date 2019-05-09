@@ -21,7 +21,7 @@ export default class Schedule {
      * @returns {schedule} the schedule with the time to sync with JDS.
      */
     getBirthdateSchedule() {
-        const sche = '00 00 11 * * *';
+        const sche = `${process.env.GREETING_SECOND} ${process.env.GREETING_MIN} ${process.env.GREETING_HOUR} * * *`;
         const task = cron.schedule(sche, () => {
             this.emplController.getBirthdayList().then((empl) => {
                 if (empl.length > 0) {
