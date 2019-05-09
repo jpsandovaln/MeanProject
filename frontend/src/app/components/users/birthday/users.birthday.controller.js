@@ -6,8 +6,9 @@ import defaultImg from '../../../../resources/default.jpg';
  * Controller for Birthday
  */
 export default class BirthdayController {
-    constructor($interval, $http, $routeParams) {
+    constructor($interval, $http, $routeParams, $scope) {
         'ngInject';
+        this.$scope = $scope;
         this.$interval = $interval;
         this.$http = $http;
         this.$routeParams = $routeParams;
@@ -19,6 +20,8 @@ export default class BirthdayController {
         this.defaultImg = defaultImg;
         this.baseUri = `http://${config.serverHost}:${config.serverPort}`;
         this.employeeRoute = `${this.baseUri}/crud/employees`;
+        this.employeeName = '';
+        this.employeeImg = this.defaultImg;
         if (!this.employeeId) {
             if (!this.employeeFirstName && !this.employeeLastName && !this.employeePhotoUrl) {
                 this.urlBirthday = `${this.employeeRoute}/birthdaylist`;
@@ -46,13 +49,13 @@ export default class BirthdayController {
                 this.employees = response.data;
                 let index = this.employees.length - 1;
                 this.employeeName = this.employees[index].firstName + ' ' + this.employees[index].lastName;
-                this.employeeImg = this.employees[index].image;
+                this.employeeImg = this.baseUri + this.employees[index].image;
                 this.showEmployee();
             } else {
                 if (Object.keys(response.data).length > 0) {
                     this.employee = response.data;
                     this.employeeName = this.employee.firstName + ' ' + this.employee.lastName;
-                    this.employeeImg = this.employee.image;
+                    this.employeeImg = this.baseUri + this.employee.image;
                 } else {
                     this.baseUri = "";
                     this.employeeImg = this.defaultImg;
@@ -73,10 +76,9 @@ export default class BirthdayController {
                 if(this.employees.length === 0) {
                     return;
                 }
-                const name = document.getElementById("employeeName");
-                name.textContent = this.employees[index].firstName + ' ' + this.employees[index].lastName;
-                const image = document.getElementById("employeeImageList");
-                image.src = this.baseUri + this.employees[index].image;
+                this.employeeName = this.employees[index].firstName + ' ' + this.employees[index].lastName;
+                this.employeeImg = this.baseUri + this.employees[index].image;
+                this.$scope.$apply()
                 index++;
                 if(index === this.employees.length) {
                     index = 0;
