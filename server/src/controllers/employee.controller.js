@@ -84,7 +84,6 @@ export default class EmployeeController {
         return (req, res) => {
             this.getBirthdayList()
             .then((list) => {
-                console.info(list);
                 res.json(list);
             });
         };
@@ -104,7 +103,6 @@ export default class EmployeeController {
                 res.json(result);
             })
             .catch((error) => {
-                console.error(error);
                 res.json({});
             });
         };

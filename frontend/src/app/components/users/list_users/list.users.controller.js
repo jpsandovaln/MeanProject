@@ -52,13 +52,11 @@ export default class ListUsersController {
     }
 
     fillData(employee) {
-        const parts = employee.birthdate.split('-');
-        const birthdate = new Date(parts[0], parts[1] - 1, parts[2]);
         this.selectedEmployee = employee;
         this.firstName = employee.firstName;
         this.lastName = employee.lastName;
         this.age = employee.age;
-        this.birthdate = birthdate;
+        this.birthdate = moment(employee.birthdate).format("YYYY-MM-DD");
     }
 
     editEmployee() {
@@ -66,7 +64,7 @@ export default class ListUsersController {
         fd.append('imageUpload', this.$scope.selectedFile);
         fd.append('firstName', this.firstName);
         fd.append('lastName', this.lastName);
-        fd.append('age', this.age);   
+        fd.append('age', this.age);
         fd.append('birthdate', moment(this.birthdate).format("YYYY-MM-DD"));   
         this.$http({
             method: 'put', 
